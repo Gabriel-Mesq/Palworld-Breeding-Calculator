@@ -25,7 +25,24 @@ def create_app(test_config=None):
 
     @app.route('/add', methods=['GET', 'POST'])
     def add_numbers():
-        result = None
+        result = ""
+        
+        if request.method == 'POST':
+            # If the form is submitted, process the form data
+            try:
+                num1 = float(request.form['num1'])
+                num2 = float(request.form['num2'])
+                result = num1 + num2
+            except ValueError:
+                return 'Invalid input. Please provide numeric values for num1 and num2.'
+
+        # Render the HTML template and pass the result to display
+        return render_template('add_numbers.html', result=result)
+    
+    
+    @app.route('/breeder', methods=['GET', 'POST'])
+    def breeder():
+        result = ""
         
         if request.method == 'POST':
             # If the form is submitted, process the form data
