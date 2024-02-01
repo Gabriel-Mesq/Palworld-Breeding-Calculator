@@ -5,23 +5,28 @@
 {% block header %}Breeder{% endblock %}
 
 {% block content %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.0/dist/js/select2.min.js"></script>
 <form method="post" class="my-4">
     <div class="mb-3">
         <label for="dropdown1" class="form-label">Select an option for Field 1:</label>
-        <select id="dropdown1" name="dropdown1" class="form-select">
+        <input list="options" name="dropdown1" id="dropdown1" class="form-control">
+        <datalist id="options">
             {% for index, item in dict_paldex.items() %}
-                <option value="{{ index }}">{{ item['Name'] }}</option>
+            <option value="{{ index }}">{{ item['Name'] }}</option>
             {% endfor %}
-        </select>
+        </datalist>
     </div>
 
     <div class="mb-3">
-        <label for="dropdown2" class="form-label">Select an option for Field 2:</label>
-        <select id="dropdown2" name="dropdown2" class="form-select">
+        <label for="dropdown2" class="form-label">Select an option for Field 1:</label>
+        <input list="options" name="dropdown2" id="dropdown2" class="form-control">
+        <datalist id="options">
             {% for index, item in dict_paldex.items() %}
-                <option value="{{ index }}">{{ item['Name'] }}</option>
+            <option value="{{ index }}">{{ item['Name'] }}</option>
             {% endfor %}
-        </select>
+        </datalist>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -30,4 +35,9 @@
         <p>Child Result: {{ child_result }}</p>
     {% endif %}
 </form>
+<script>
+    $(document).ready(function () {
+        $('#dropdown1').select2();
+    });
+</script>
 {% endblock %}
