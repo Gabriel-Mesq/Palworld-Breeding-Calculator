@@ -33,7 +33,9 @@ def create_app(test_config=None):
             selected_option1 = dict_paldeck[parent1]['Name']
             selected_option2 = dict_paldeck[parent2]['Name']
             print(f'Selected Option 1: {selected_option1}')
-            print(f'Selected Option 2: {selected_option2}')
+            print(f'Selected Option 1: {parent1}')
+            print(f'Selected Option 1: {selected_option2}')
+            print(f'Selected Option 2: {parent2}')
             
         return render_template('breeder.html', dict_paldex=dict_paldeck)
     
