@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Add Numbers</h1>
-    <form action="{{ url_for('add_numbers') }}" method="get">
+    <form action="{{ url_for('add_numbers') }}" method="post">
         <label for="num1">Number 1:</label>
         <input type="text" id="num1" name="num1" required>
         <br>
@@ -16,5 +16,9 @@
         <br>
         <button type="submit">Add</button>
     </form>
+
+    {% if result is defined %}
+        <p>The sum is: {{ result }}</p>
+    {% endif %}
 </body>
 </html>

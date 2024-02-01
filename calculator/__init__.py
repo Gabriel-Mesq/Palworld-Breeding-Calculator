@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 def create_app(test_config=None):
 
@@ -32,21 +32,20 @@ def create_app(test_config=None):
     def breeder():
         return 'Hello, breeder!'
     
-    @app.route('/add')
+    @app.route('/add', methods=['GET', 'POST'])
     def add_numbers():
-        try:
-            # Get the values from the query parameters in the URL
-            num1 = float(request.args.get('num1'))
-            num2 = float(request.args.get('num2'))
+        result = None
+        
+        if request.method == 'POST':
+            # If the form is submitted, process the form data
+            try:
+                num1 = float(request.form['num1'])
+                num2 = float(request.form['num2'])
+                result = num1 + num2
+            except ValueError:
+                return 'Invalid input. Please provide numeric values for num1 and num2.'
 
-            # Perform the addition
-            result = num1 + num2
-
-            # Return the result as a string
-            return f'The sum of {num1} and {num2} is: {result}'
-
-        except ValueError:
-            # Handle the case where the user provides non-numeric input
-            return 'Invalid input. Please provide numeric values for num1 and num2.'
+        # Render the HTML template and pass the result to display
+        return render_template('add_numbers.html', result=result)
         
     return app
