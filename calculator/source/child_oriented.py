@@ -1,4 +1,4 @@
-from paldeck import dict_paldeck
+from calculator.source.paldeck import dict_paldeck
 
 def find_closest_element(target_value):
     closest_element = None
@@ -17,5 +17,3 @@ def get_child(p1, p2):
     
     child_power = (dict_paldeck[p1]['Power'] + dict_paldeck[p2]['Power'])/2
     return find_closest_element(child_power)
-
-print(get_child((58.1), (58.1)))

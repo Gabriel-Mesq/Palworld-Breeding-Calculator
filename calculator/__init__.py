@@ -27,7 +27,7 @@ def create_app(test_config=None):
 
     @app.route('/breeder', methods=['GET', 'POST'])
     def breeder():        
-
+        child_result = None
         if request.method == 'POST':
             p1 = float(request.form.get('dropdown1'))
             p2 = float(request.form.get('dropdown2'))            
@@ -38,7 +38,7 @@ def create_app(test_config=None):
             print(f'Pal 2: {selected_option2}')
             print(f'Selected Option 2: {p2}')
             
-            child_result = get_child(p1, p2)
+            child_result = get_child(p1, p2)['Name']
 
         return render_template('breeder.html', dict_paldex=dict_paldeck, child_result=child_result)
     
