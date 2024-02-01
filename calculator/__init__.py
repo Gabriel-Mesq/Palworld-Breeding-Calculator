@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, render_template
+from calculator.source.paldeck import dict_paldeck
 
 def create_app(test_config=None):
 
@@ -23,39 +24,18 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/add', methods=['GET', 'POST'])
-    def add_numbers():
-        result = ""
-        
-        if request.method == 'POST':
-            # If the form is submitted, process the form data
-            try:
-                num1 = float(request.form['num1'])
-                num2 = float(request.form['num2'])
-                result = num1 + num2
-            except ValueError:
-                return 'Invalid input. Please provide numeric values for num1 and num2.'
-
-        # Render the HTML template and pass the result to display
-        return render_template('add_numbers.html', result=result)
-    
-    
     @app.route('/breeder', methods=['GET', 'POST'])
-    
-    def breeder():
-        result = ""
-        
-        if request.method == 'POST':
-            # If the form is submitted, process the form data
-            try:
-                parent1 = str(request.form['parent1'])
-                parent2 = str(request.form['parent2'])
-                result = num1 + num2
-            except ValueError:
-                return 'Invalid input. Please provide numeric values for num1 and num2.'
+    def breeder():        
 
-        # Render the HTML template and pass the result to display
-        return render_template('add_numbers.html', result=result)
+        if request.method == 'POST':
+            parent1 = int(request.form.get('dropdown1'))
+            parent2 = int(request.form.get('dropdown2'))            
+            selected_option1 = dict_paldeck[parent1]['Name']
+            selected_option2 = dict_paldeck[parent2]['Name']
+            print(f'Selected Option 1: {selected_option1}')
+            print(f'Selected Option 2: {selected_option2}')
+            
+        return render_template('breeder.html', dict_paldex=dict_paldeck)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():
