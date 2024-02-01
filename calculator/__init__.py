@@ -23,15 +23,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-    @app.route('/breeder')
-    def breeder():
-        return 'Hello, breeder!'
-    
     @app.route('/add', methods=['GET', 'POST'])
     def add_numbers():
         result = None
