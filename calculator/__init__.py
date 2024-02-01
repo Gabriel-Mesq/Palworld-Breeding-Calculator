@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, render_template
+from calculator.source.paldeck import dict_paldeck
 
 def create_app(test_config=None):
 
@@ -64,6 +65,6 @@ def create_app(test_config=None):
         {"name": "Cattiva", "image_url": "https://palworld.wiki.gg/images/6/6d/Cattiva_icon.png"},
         {"name": "Pengullet", "image_url": "https://palworld.wiki.gg/images/5/5f/Pengullet_icon.png"}
         ]
-        return render_template('calculator.html', my_list=my_list)
+        return render_template('calculator.html', my_list=my_list, dict_paldeck=dict_paldeck)
         
     return app

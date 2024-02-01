@@ -15,7 +15,7 @@ def find_closest_element(target_value):
 
 def get_child(p1, p2):
     
-    chield_power = (dict_paldeck[p1]['Power'] + dict_paldeck[p2]['Power'])/2
-    return find_closest_element(chield_power)
+    child_power = (dict_paldeck[p1]['Power'] + dict_paldeck[p2]['Power'])/2
+    return find_closest_element(child_power)
 
 print(get_child((58.1), (58.1)))
