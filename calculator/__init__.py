@@ -38,5 +38,14 @@ def create_app(test_config=None):
 
         # Render the HTML template and pass the result to display
         return render_template('add_numbers.html', result=result)
+    
+    @app.route('/calculator', methods=['GET', 'POST'])
+    def calculator():
+        my_list = [
+        {"name": "Lamball", "image_url": "https://palworld.wiki.gg/images/e/ee/Lamball_icon.png"},
+        {"name": "Cattiva", "image_url": "https://palworld.wiki.gg/images/6/6d/Cattiva_icon.png"},
+        {"name": "Pengullet", "image_url": "https://palworld.wiki.gg/images/5/5f/Pengullet_icon.png"}
+        ]
+        return render_template('calculator.html', my_list=my_list)
         
     return app
