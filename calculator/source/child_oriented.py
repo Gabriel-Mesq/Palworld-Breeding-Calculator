@@ -1,19 +1,30 @@
-from calculator.source.paldeck import dict_paldeck
+import networkx as nx
 
-def find_closest_element(target_value):
-    closest_element = None
-    min_difference = float('inf')  # Inicializa com infinito para garantir que a primeira diferença será menor
+def encontrar_combinacoes(lista, resultado_desejado):
+    # Criação do grafo ponderado
+    G = nx.Graph()
+    G.add_nodes_from(lista)
 
-    for key, value in dict_paldeck.items():
-        current_difference = abs(value['Power'] - target_value)
+    for i in range(len(lista)):
+        for j in range(i+1, len(lista)):
+            # Calcula a média entre dois números
+            media = (lista[i] + lista[j]) / 2
+            # Adiciona uma aresta ponderada ao grafo
+            G.add_edge(lista[i], lista[j], weight=media)
 
-        if current_difference < min_difference or (current_difference == min_difference and value['Order'] < closest_element['Order']):
-            closest_element = value
-            min_difference = current_difference
+    # Encontrar caminhos no grafo que levam à média desejada
+    caminhos = []
+    for node in lista:
+        for path in nx.all_simple_paths(G, source=node, target=resultado_desejado):
+            caminhos.append(path)
 
-    return closest_element
+    return caminhos
 
-def get_child(p1, p2):
-    
-    child_power = (dict_paldeck[p1]['Power'] + dict_paldeck[p2]['Power'])/2
-    return find_closest_element(child_power)
+# Exemplo de uso
+lista_numeros = [20, 10, 2, 0, 999, 60]
+resultado_desejado = 6
+
+resultados = encontrar_combinacoes(lista_numeros, resultado_desejado)
+print("Caminhos que levam à média desejada:")
+for caminho in resultados:
+    print(caminho)

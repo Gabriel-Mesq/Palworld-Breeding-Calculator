@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, render_template
 from calculator.source.paldeck import dict_paldeck
-from calculator.source.child_oriented import get_child
+from calculator.source.parent_oriented import get_child
 
 def create_app(test_config=None):
 
@@ -31,15 +31,9 @@ def create_app(test_config=None):
         if request.method == 'POST':
             p1 = float(request.form.get('dropdown1'))
             p2 = float(request.form.get('dropdown2'))            
-            selected_option1 = dict_paldeck[p1]['Name']
-            selected_option2 = dict_paldeck[p2]['Name']
-            print(f'Pai 1: {selected_option1}')
-            print(f'Selected Option 1: {p1}')
-            print(f'Pal 2: {selected_option2}')
-            print(f'Selected Option 2: {p2}')
-            
-            child_result = get_child(p1, p2)['Name']
 
+            child_result = get_child(p1, p2)['Name']
+            
         return render_template('breeder.html', dict_paldex=dict_paldeck, child_result=child_result)
     
     @app.route('/calculator', methods=['GET', 'POST'])
