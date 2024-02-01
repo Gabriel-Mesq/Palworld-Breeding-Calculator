@@ -17,8 +17,23 @@
             <li class="list-group-item d-flex align-items-center">
                 <img src="{{ item.image_url }}" alt="{{ item.name }}" style="max-width: 50px; max-height: 50px;">{{ item.name }}
             </li>
-            
+
             {% endfor %}
         </ul>
     {% endif %}
+
+    <form action="{{ url_for('add_numbers') }}" method="post">
+        <label for="num1">Number 1:</label>
+        <input type="text" id="num1" name="num1" required>
+        <br>
+        <label for="num2">Number 2:</label>
+        <input type="text" id="num2" name="num2" required>
+        <br>
+        <button type="submit">Add</button>
+    </form>
+
+    {% if result is defined %}
+        <p>The sum is: {{ result }}</p>
+    {% endif %}
+
 {% endblock %}

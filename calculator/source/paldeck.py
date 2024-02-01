@@ -140,21 +140,3 @@ dict_paldeck = {
     110.2: {'Name': 'Frostallion Noct', 'Power': 100, 'Order': 67},
     111: {'Name': 'Jetragon', 'Power': 90, 'Order': 105}
 }
-
-def find_closest_element(dictionary, target_value):
-    closest_element = None
-    min_difference = float('inf')  # Inicializa com infinito para garantir que a primeira diferença será menor
-
-    for key, value in dictionary.items():
-        current_difference = abs(value['Power'] - target_value)
-
-        if current_difference < min_difference or (current_difference == min_difference and value['Order'] < closest_element['Order']):
-            closest_element = value
-            min_difference = current_difference
-
-    return closest_element
-
-target_power = (dict_paldeck[64.1]['Power'] + dict_paldeck[50]['Power'])/2
-closest_element_key  = find_closest_element(dict_paldeck, target_power)
-
-print(f"Elemento mais próximo de {target_power}: {closest_element_key}")

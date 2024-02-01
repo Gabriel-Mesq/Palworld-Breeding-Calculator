@@ -41,14 +41,15 @@ def create_app(test_config=None):
     
     
     @app.route('/breeder', methods=['GET', 'POST'])
+    
     def breeder():
         result = ""
         
         if request.method == 'POST':
             # If the form is submitted, process the form data
             try:
-                num1 = float(request.form['num1'])
-                num2 = float(request.form['num2'])
+                parent1 = str(request.form['parent1'])
+                parent2 = str(request.form['parent2'])
                 result = num1 + num2
             except ValueError:
                 return 'Invalid input. Please provide numeric values for num1 and num2.'
