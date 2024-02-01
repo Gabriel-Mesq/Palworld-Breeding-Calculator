@@ -28,8 +28,8 @@ def create_app(test_config=None):
     def breeder():        
 
         if request.method == 'POST':
-            parent1 = int(request.form.get('dropdown1'))
-            parent2 = int(request.form.get('dropdown2'))            
+            parent1 = float(request.form.get('dropdown1'))
+            parent2 = float(request.form.get('dropdown2'))            
             selected_option1 = dict_paldeck[parent1]['Name']
             selected_option2 = dict_paldeck[parent2]['Name']
             print(f'Selected Option 1: {selected_option1}')
