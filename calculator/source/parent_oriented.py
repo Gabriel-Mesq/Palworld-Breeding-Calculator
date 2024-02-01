@@ -1,4 +1,4 @@
-from calculator.source.paldeck import dict_paldeck
+from paldeck import dict_paldeck
 
 def find_closest_element(target_value):
     closest_element = None

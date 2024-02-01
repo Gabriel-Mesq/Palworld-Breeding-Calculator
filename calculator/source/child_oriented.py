@@ -1,30 +1,32 @@
-import networkx as nx
+from paldeck import dict_paldeck
 
-def encontrar_combinacoes(lista, resultado_desejado):
-    # Criação do grafo ponderado
-    G = nx.Graph()
-    G.add_nodes_from(lista)
+def find_closest_element(target_value):
+    closest_element = None
+    min_difference = float('inf')  # Inicializa com infinito para garantir que a primeira diferença será menor
 
-    for i in range(len(lista)):
-        for j in range(i+1, len(lista)):
-            # Calcula a média entre dois números
-            media = (lista[i] + lista[j]) / 2
-            # Adiciona uma aresta ponderada ao grafo
-            G.add_edge(lista[i], lista[j], weight=media)
+    for key, value in dict_paldeck.items():
+        current_difference = abs(value['Power'] - target_value)
 
-    # Encontrar caminhos no grafo que levam à média desejada
-    caminhos = []
-    for node in lista:
-        for path in nx.all_simple_paths(G, source=node, target=resultado_desejado):
-            caminhos.append(path)
+        if current_difference < min_difference or (current_difference == min_difference and value['Order'] < closest_element['Order']):
+            closest_element = value
+            min_difference = current_difference
 
-    return caminhos
+    return closest_element
 
-# Exemplo de uso
-lista_numeros = [20, 10, 2, 0, 999, 60]
-resultado_desejado = 6
+def get_parent(child_power):
+    duplas = []
+    menor_diferenca = float('inf')  # Inicializa com um valor grande
 
-resultados = encontrar_combinacoes(lista_numeros, resultado_desejado)
-print("Caminhos que levam à média desejada:")
-for caminho in resultados:
-    print(caminho)
+    for key1, value1 in dict_paldeck.items():
+        for key2, value2 in dict_paldeck.items():
+            if key1 != key2:
+                media = (value1['Power'] + value2['Power']) / 2
+                closest = find_closest_element(media)
+                if  closest['Power'] == child_power:
+                    duplas.append((key1, key2))
+
+    return duplas
+
+# Exemplo de uso:
+resultado = get_parent(580)
+print(f"Duplas cuja média é {580}: {resultado}")
