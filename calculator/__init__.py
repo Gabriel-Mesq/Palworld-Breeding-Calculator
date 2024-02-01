@@ -1,8 +1,8 @@
 import os
-from flask import Flask
-
+from flask import Flask, request
 
 def create_app(test_config=None):
+
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -28,4 +28,25 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+    @app.route('/breeder')
+    def breeder():
+        return 'Hello, breeder!'
+    
+    @app.route('/add')
+    def add_numbers():
+        try:
+            # Get the values from the query parameters in the URL
+            num1 = float(request.args.get('num1'))
+            num2 = float(request.args.get('num2'))
+
+            # Perform the addition
+            result = num1 + num2
+
+            # Return the result as a string
+            return f'The sum of {num1} and {num2} is: {result}'
+
+        except ValueError:
+            # Handle the case where the user provides non-numeric input
+            return 'Invalid input. Please provide numeric values for num1 and num2.'
+        
     return app
