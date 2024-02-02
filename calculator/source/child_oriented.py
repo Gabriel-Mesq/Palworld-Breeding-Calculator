@@ -1,4 +1,4 @@
-from calculator.source.paldeck import dict_paldeck
+from paldeck import dict_paldeck
 
 def find_closest_element(target_value):
     closest_element = None
@@ -13,7 +13,20 @@ def find_closest_element(target_value):
 
     return closest_element
 
-def get_child(p1, p2):
-    
-    child_power = (dict_paldeck[p1]['Power'] + dict_paldeck[p2]['Power'])/2
-    return find_closest_element(child_power)
+def get_parent(child_power):
+    duplas = []
+    menor_diferenca = float('inf')  # Inicializa com um valor grande
+
+    for key1, value1 in dict_paldeck.items():
+        for key2, value2 in dict_paldeck.items():
+            if key1 != key2:
+                media = (value1['Power'] + value2['Power']) / 2
+                closest = find_closest_element(media)
+                if  closest['Power'] == child_power:
+                    duplas.append((key1, key2))
+
+    return duplas
+
+# Exemplo de uso:
+resultado = get_parent(580)
+print(f"Duplas cuja média é {580}: {resultado}")
