@@ -11,7 +11,7 @@
         <label for="dropdown1" class="form-label">Select the First parent:</label>
         <input list="parentsList" name="dropdown1" id="dropdown1" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
         <datalist id="parentsList">
-            {% for index, item in dict_paldex.items() %}
+            {% for index, item in dict_paldeck.items() %}
                 <option value="{{ index }}">{{ item['Name'] }}</option>
             {% endfor %}
         </datalist>
@@ -19,9 +19,11 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
-    {% for item in dict_paldex.items() %}
-        <p>parents_result Result: {{ p1 }}</p>
-    {% endfor %}
+    <ul>
+        {% for item in name_list %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
 </form>
 
 <script>
