@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, render_template
-from calculator.source.paldeck import dicionario
+from calculator.source.paldeck import dict_paldeck
 from calculator.source.parent_oriented import get_child
 
 def create_app(test_config=None):
@@ -34,7 +34,7 @@ def create_app(test_config=None):
 
             child_result = get_child(p1, p2)['Name']
             
-        return render_template('breeder.html', dict_paldex=dicionario, child_result=child_result)
+        return render_template('breeder.html', dict_paldex=dict_paldex, child_result=child_result)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():

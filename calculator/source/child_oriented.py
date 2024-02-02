@@ -1,4 +1,4 @@
-from paldeck import dict_paldeck
+from paldeck import dict_paldeck, unique_combos
 
 def find_closest_element(target_value):
     closest_element = None
@@ -13,10 +13,22 @@ def find_closest_element(target_value):
 
     return closest_element
 
-def get_parent(child_power):
-    duplas = []
-    menor_diferenca = float('inf')  # Inicializa com um valor grande
+def get_index_by_name(name):
+    for index, card_info in dict_paldeck.items():
+        if card_info['Name'] == name:
+            return index
+    return None
 
+def get_parent(child):
+    
+    if dict_paldeck[child]['Name'] in unique_combos:
+        parents = unique_combos[dict_paldeck[child]['Name']].split('+')
+        return [get_index_by_name(parent) for parent in parents]
+    
+    duplas = []
+    
+    child_power = dict_paldeck[child]['Power']
+    
     for key1, value1 in dict_paldeck.items():
         for key2, value2 in dict_paldeck.items():
             if key1 != key2:
@@ -28,5 +40,5 @@ def get_parent(child_power):
     return duplas
 
 # Exemplo de uso:
-resultado = get_parent(580)
-print(f"Duplas cuja média é {580}: {resultado}")
+resultado = get_parent(103)
+print(f"Duplas cuja média é {104.1}: {resultado}")
