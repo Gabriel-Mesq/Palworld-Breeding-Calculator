@@ -33,7 +33,7 @@ def create_app(test_config=None):
             p1 = float(request.form.get('dropdown1'))
             p2 = float(request.form.get('dropdown2'))            
 
-            child_result = get_child(p1, p2)['Name']
+            child_result = get_child(p1, p2)
             
         return render_template('breeder_get_child.html', dict_paldeck=dict_paldeck, child_result=child_result)
     

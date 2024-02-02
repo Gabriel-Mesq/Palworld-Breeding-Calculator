@@ -12,7 +12,7 @@
         <img id="imageContainer1" src="" alt="" style="max-width: 100px; max-height: 200px;">
         <select name="dropdown1" id="dropdown1" class="form-control">
             <option selected value=""></option>
-            {% for index, item in dict_paldex.items() %}
+            {% for index, item in dict_paldeck.items() %}
                 <option value="{{ index }}" data-img="{{ item['ImageUrl'] }}">{{ item['Name'] }}</option>
             {% endfor %}
         </select>
@@ -23,7 +23,7 @@
         <img id="imageContainer2" src="" alt="" style="max-width: 100px; max-height: 200px;">
         <select name="dropdown2" id="dropdown2" class="form-control">
             <option selected value=""></option>
-            {% for index, item in dict_paldex.items() %}
+            {% for index, item in dict_paldeck.items() %}
                 <option value="{{ index }}" data-img="{{ item['ImageUrl'] }}">{{ item['Name'] }}</option>
             {% endfor %}
         </select>
@@ -32,10 +32,11 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 
     {% if child_result %}
-        <p>Child Result: {{ child_result }}</p>
-    {% endif %}
+    <p>Child Result: {{ child_result['Name'] }}</p>
+    <!-- Display the image using the img tag -->
+    <img src="{{ child_result['ImageUrl'] }}" alt="Child Image" style="max-width: 100px; max-height: 200px;">
+{% endif %}
 
-</form>
 
 <script>
     // Use JavaScript to update images based on selected option for the first dropdown
@@ -48,16 +49,53 @@
         updateImage('dropdown2', 'imageContainer2');
     });
 
+    // Check if there are stored values and update dropdowns accordingly
+    window.onload = function() {
+        var storedValue1 = localStorage.getItem('selectedValue1');
+        if (storedValue1) {
+            document.getElementById('dropdown1').value = storedValue1;
+            updateImage('dropdown1', 'imageContainer1');
+        }
+
+        var storedValue2 = localStorage.getItem('selectedValue2');
+        if (storedValue2) {
+            document.getElementById('dropdown2').value = storedValue2;
+            updateImage('dropdown2', 'imageContainer2');
+        }
+    };
+
     function updateImage(dropdownId, containerId) {
         var selectedOption = document.getElementById(dropdownId).value;
         var imageContainer = document.getElementById(containerId);
-        
+
         // Get the image URL from the data-img attribute
         var imageUrl = document.querySelector('#' + dropdownId + ' option[value="' + selectedOption + '"]').getAttribute('data-img');
-        
+
         // Update the image container
         imageContainer.src = imageUrl;
+
+        // Store the selected value in localStorage
+        if (dropdownId === 'dropdown1') {
+            localStorage.setItem('selectedValue1', selectedOption);
+        } else if (dropdownId === 'dropdown2') {
+            localStorage.setItem('selectedValue2', selectedOption);
+        }
+
+        // Use Fetch API to send an asynchronous request to the server
+        fetch('/breeder/update_images', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                selectedOption: selectedOption,
+                dropdownId: dropdownId,
+            }),
+        });
     }
 </script>
+
+
+
 
 {% endblock %}
