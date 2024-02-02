@@ -39,11 +39,12 @@ def create_app(test_config=None):
     
     @app.route('/breeder/get_parents', methods=['GET', 'POST'])
     def breeder_get_parents():        
-        list_parent_pairs = []
+        name_list = []
         if request.method == 'POST':
             child = float(request.form.get('dropdown1'))
             list_parent_pairs = get_parent(child)
-        return render_template('breeder_get_parents.html', dict_paldeck=dict_paldeck, list_parent_pairs=list_parent_pairs)
+            name_list = [(d1['Name'], d2['Name']) for d1, d2 in list_parent_pairs]
+        return render_template('breeder_get_parents.html', dict_paldeck=dict_paldeck, name_list=name_list)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():
