@@ -8,7 +8,7 @@
 <form method="post" class="my-4" id="breederForm">
     <!-- Update the dropdowns to use Datalist -->
     <div class="mb-3">
-        <label for="dropdown1" class="form-label">Select the First parent:</label>
+        <label for="dropdown1" class="form-label">Select the child:</label>
         <input list="parentsList" name="dropdown1" id="dropdown1" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
         <datalist id="parentsList">
             {% for index, item in dict_paldeck.items() %}

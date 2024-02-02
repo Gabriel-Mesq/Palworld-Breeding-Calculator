@@ -1,6 +1,8 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
+    background-color: rgb(11,29,44);
+    color: rgb(255,255,255);
 }
 
 header {
@@ -41,4 +43,34 @@ nav a:hover {
 
 main {
     padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.contact-links a:hover {
+  text-decoration: underline;
 }

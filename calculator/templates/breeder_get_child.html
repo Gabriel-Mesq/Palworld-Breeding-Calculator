@@ -33,8 +33,9 @@
 
     {% if child_result %}
         <p>Child Result: {{ child_result['Name'] }}</p>
-        <p>Child Result: {{ child_result['ImageUrl'] }}</p>
-    {% endif %}
+        <!-- Display the image using the img tag -->
+        <img src="{{ child_result['ImageUrl'] }}" alt="Child Image" style="max-width: 100px; max-height: 200px;">
+    {% endif %} 
 
 </form>
 
@@ -49,15 +50,37 @@
         updateImage('dropdown2', 'imageContainer2');
     });
 
+    // Check if there are stored values and update dropdowns accordingly
+    window.onload = function() {
+        var storedValue1 = localStorage.getItem('selectedValue1');
+        if (storedValue1) {
+            document.getElementById('dropdown1').value = storedValue1;
+            updateImage('dropdown1', 'imageContainer1');
+        }
+
+        var storedValue2 = localStorage.getItem('selectedValue2');
+        if (storedValue2) {
+            document.getElementById('dropdown2').value = storedValue2;
+            updateImage('dropdown2', 'imageContainer2');
+        }
+    };
+
     function updateImage(dropdownId, containerId) {
         var selectedOption = document.getElementById(dropdownId).value;
         var imageContainer = document.getElementById(containerId);
-        
+
         // Get the image URL from the data-img attribute
         var imageUrl = document.querySelector('#' + dropdownId + ' option[value="' + selectedOption + '"]').getAttribute('data-img');
-        
+
         // Update the image container
         imageContainer.src = imageUrl;
+
+        // Store the selected value in localStorage
+        if (dropdownId === 'dropdown1') {
+            localStorage.setItem('selectedValue1', selectedOption);
+        } else if (dropdownId === 'dropdown2') {
+            localStorage.setItem('selectedValue2', selectedOption);
+        }
     }
 </script>
 
