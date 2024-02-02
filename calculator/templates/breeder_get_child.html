@@ -11,7 +11,7 @@
         <label for="dropdown1" class="form-label">Select the First parent:</label>
         <input list="parentsList" name="dropdown1" id="dropdown1" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
         <datalist id="parentsList">
-            {% for index, item in dict_paldex.items() %}
+            {% for index, item in dict_paldeck.items() %}
                 <option value="{{ index }}">{{ item['Name'] }}</option>
             {% endfor %}
         </datalist>

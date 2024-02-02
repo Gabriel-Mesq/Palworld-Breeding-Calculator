@@ -37,6 +37,8 @@ def get_parent(child):
                 media = (value1['Power'] + value2['Power']) / 2
                 closest = find_closest_element(media)
                 if  closest['Power'] == child_power:
-                    duplas.append((key1, key2))
+                    duplas.append((value1, value2))
 
     return duplas
+
+print(get_parent(100))
