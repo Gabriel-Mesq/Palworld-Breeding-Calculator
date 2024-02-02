@@ -19,12 +19,9 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
-    {% if p1 %}
+    {% for item in dict_paldex.items() %}
         <p>parents_result Result: {{ p1 }}</p>
-    {% endif %}
-    {% if p2 %}
-        <p>parents_result Result: {{ p2 }}</p>
-    {% endif %}
+    {% endfor %}
 </form>
 
 <script>

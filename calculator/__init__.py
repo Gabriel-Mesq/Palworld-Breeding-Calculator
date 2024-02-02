@@ -39,7 +39,8 @@ def create_app(test_config=None):
     
     @app.route('/breeder/get_parents', methods=['GET', 'POST'])
     def breeder_get_parents():        
-        parents_result = None
+        p1 = None
+        p2 = None
         if request.method == 'POST':
             child = float(request.form.get('dropdown1'))
             p1, p2 = get_parent(child)
