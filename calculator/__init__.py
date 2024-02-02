@@ -34,7 +34,7 @@ def create_app(test_config=None):
 
             child_result = get_child(p1, p2)['Name']
             
-        return render_template('breeder.html', dict_paldex=dict_paldex, child_result=child_result)
+        return render_template('breeder.html', dict_paldex=dict_paldeck, child_result=child_result)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():
@@ -43,6 +43,6 @@ def create_app(test_config=None):
         {"name": "Cattiva", "image_url": "https://palworld.wiki.gg/images/6/6d/Cattiva_icon.png"},
         {"name": "Pengullet", "image_url": "https://palworld.wiki.gg/images/5/5f/Pengullet_icon.png"}
         ]
-        return render_template('calculator.html', my_list=my_list, dict_paldeck=dicionario)
+        return render_template('calculator.html', my_list=my_list, dict_paldeck=dict_paldeck)
         
     return app
