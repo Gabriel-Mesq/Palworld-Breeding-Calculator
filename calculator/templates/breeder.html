@@ -9,22 +9,24 @@
     <!-- Update the dropdowns to use Datalist -->
     <div class="mb-3">
         <label for="dropdown1" class="form-label">Select the First parent:</label>
-        <input list="parentsList" name="dropdown1" id="dropdown1" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
-        <datalist id="parentsList">
+        <img id="imageContainer1" src="" alt="" style="max-width: 100px; max-height: 200px;">
+        <select name="dropdown1" id="dropdown1" class="form-control">
+            <option selected value=""></option>
             {% for index, item in dict_paldex.items() %}
-                <option value="{{ index }}">{{ item['Name'] }}</option>
+                <option value="{{ index }}" data-img="{{ item['ImageUrl'] }}">{{ item['Name'] }}</option>
             {% endfor %}
-        </datalist>
+        </select>
     </div>
     
     <div class="mb-3">
         <label for="dropdown2" class="form-label">Select the Second parent:</label>
-        <input list="parentsList" name="dropdown2" id="dropdown2" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
-        <datalist id="parentsList">
+        <img id="imageContainer2" src="" alt="" style="max-width: 100px; max-height: 200px;">
+        <select name="dropdown2" id="dropdown2" class="form-control">
+            <option selected value=""></option>
             {% for index, item in dict_paldex.items() %}
-                <option value="{{ index }}">{{ item['Name'] }}</option>
+                <option value="{{ index }}" data-img="{{ item['ImageUrl'] }}">{{ item['Name'] }}</option>
             {% endfor %}
-        </datalist>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -36,19 +38,26 @@
 </form>
 
 <script>
-    function updateDisplayName(input) {
-        var selectedOption = input.value;
-        var dataList = input.list;
+    // Use JavaScript to update images based on selected option for the first dropdown
+    document.getElementById('dropdown1').addEventListener('change', function() {
+        updateImage('dropdown1', 'imageContainer1');
+    });
 
-        // Find the selected option in the datalist using label
-        var option = Array.from(dataList.options).find(option => option.label === selectedOption);
+    // Use JavaScript to update images based on selected option for the second dropdown
+    document.getElementById('dropdown2').addEventListener('change', function() {
+        updateImage('dropdown2', 'imageContainer2');
+    });
 
-        // Update the input field with the displayed name
-        if (option) {
-            input.value = option.label;
-        }
+    function updateImage(dropdownId, containerId) {
+        var selectedOption = document.getElementById(dropdownId).value;
+        var imageContainer = document.getElementById(containerId);
+        
+        // Get the image URL from the data-img attribute
+        var imageUrl = document.querySelector('#' + dropdownId + ' option[value="' + selectedOption + '"]').getAttribute('data-img');
+        
+        // Update the image container
+        imageContainer.src = imageUrl;
     }
 </script>
-
 
 {% endblock %}
