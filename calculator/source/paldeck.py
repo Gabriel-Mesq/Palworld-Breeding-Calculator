@@ -117,7 +117,7 @@ dict_paldeck = {
     93: {'Name': 'Fenglope', 'Power': 980, 'Order': 48},
     94: {'Name': 'Felbat', 'Power': 1010, 'Order': 70},
     95: {'Name': 'Quivern', 'Power': 350, 'Order': 124},
-    96: {'Name': 'Blazamut', 'Power': 0, 'Order': 74},
+    96: {'Name': 'Blazamut', 'Power': 10, 'Order': 74},
     97: {'Name': 'Helzephyr', 'Power': 190, 'Order': 125},
     98: {'Name': 'Astegon', 'Power': 150, 'Order': 102},
     99: {'Name': 'Menasting', 'Power': 260, 'Order': 133},
