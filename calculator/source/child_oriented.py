@@ -40,5 +40,3 @@ def get_parent(child):
                     duplas.append((key1, key2))
 
     return duplas
-
-print(get_parent(103))
