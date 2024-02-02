@@ -1,5 +1,3 @@
-from math import floor
-
 dict_paldeck = {
     1: {'Name': 'Lamball', 'Power': 1470, 'Order': 27, 'ImageUrl': 'https://palworld.wiki.gg/images/e/ee/Lamball_icon.png'},
     2: {'Name': 'Cattiva', 'Power': 1460, 'Order': 46, 'ImageUrl': 'https://palworld.wiki.gg/images/6/6d/Cattiva_icon.png'},
@@ -139,4 +137,40 @@ dict_paldeck = {
     110.1: {'Name': 'Frostallion', 'Power': 120, 'Order': 66},
     110.2: {'Name': 'Frostallion Noct', 'Power': 100, 'Order': 67},
     111: {'Name': 'Jetragon', 'Power': 90, 'Order': 105}
+}
+
+unique_combos = {
+    "Relaxaurus-Lux": "Relaxaurus+Sparkit",
+    "Incineram-Noct": "Incineram+Maraith",
+    "Mau-Cryst": "Mau+Pengullet",
+    "Vanwyrm-Cryst": "Vanwyrm+Foxcicle",
+    "Eikthyrdeer-Terra": "Eikthyrdeer+Hangyu",
+    "Elphidran-Aqua": "Elphidran+Surfent",
+    "Pyrin-Noct": "Pyrin+Katress",
+    "Mammorest-Cryst": "Mammorest+Wumpo",
+    "Mossanda-Lux": "Mossanda+Grizzbolt",
+    "Dinossom-Lux": "Dinossom+Rayhound",
+    "Jolthog-Cryst": "Jolthog+Pengullet",
+    "Frostallion-Noct": "Frostallion+Helzephyr",
+    "Ice-Kingpaca": "Kingpaca+Reindrix",
+    "Lyleen-Noct": "Lyleen+Menasting",
+    "Leezpunk-Ignis": "Leezpunk+Flambelle",
+    "Blazehowl-Noct": "Blazehowl+Felbat",
+    "Robinquill-Terra": "Robinquill+Fuddler",
+    "Broncherry-Aqua": "Broncherry+Fuack",
+    "Surfent-Terra": "Surfent+Dumud",
+    "Gobfin-Ignis": "Gobfin+Rooby",
+    "Suzaku-Aqua": "Suzaku+Jormuntide",
+    "Ice-Reptyro": "Reptyro+Foxcicle",
+    "Hangyu-Cryst": "Hangyu+Swee",
+    "Lyleen": "Mossanda+Petallia",
+    "Faleris": "Vanwyrm+Anubis",
+    "Grizzbolt": "Mossanda+Rayhound",
+    "Orserk": "Grizzbolt+Relaxaurus",
+    "Shadowbeak": "Kitsun+Astegon",
+    "Frostallion": "Frostallion+Frostallion",
+    "Jetragon": "Jetragon+Jetragon",
+    "Paladius": "Paladius+Paladius",
+    "Necromus": "Necromus+Necromus",
+    "Jormuntide-Ignis": "Jormuntide-Ignis+Jormuntide-Ignis"
 }

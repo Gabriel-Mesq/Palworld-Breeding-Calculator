@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, render_template
 from calculator.source.paldeck import dict_paldeck
 from calculator.source.parent_oriented import get_child
+from calculator.source.child_oriented import get_parent
 
 def create_app(test_config=None):
 
@@ -25,8 +26,8 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/breeder', methods=['GET', 'POST'])
-    def breeder():        
+    @app.route('/breeder/get_child', methods=['GET', 'POST'])
+    def breeder_get_child():        
         child_result = None
         if request.method == 'POST':
             p1 = float(request.form.get('dropdown1'))
@@ -35,6 +36,15 @@ def create_app(test_config=None):
             child_result = get_child(p1, p2)['Name']
             
         return render_template('breeder.html', dict_paldex=dict_paldeck, child_result=child_result)
+    
+    @app.route('/breeder/get_parents', methods=['GET', 'POST'])
+    def breeder_get_parents():        
+        parents_result = None
+        if request.method == 'POST':
+            child = float(request.form.get('dropdown1'))
+            parents_result = get_parent(child)['Name']
+            
+        return render_template('breeder_get_parents.html', dict_paldex=dict_paldeck, parents_result=parents_result)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():
