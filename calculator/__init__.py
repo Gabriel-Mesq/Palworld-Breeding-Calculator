@@ -35,16 +35,17 @@ def create_app(test_config=None):
 
             child_result = get_child(p1, p2)['Name']
             
-        return render_template('breeder.html', dict_paldex=dict_paldeck, child_result=child_result)
+        return render_template('breeder_get_child.html', dict_paldex=dict_paldeck, child_result=child_result)
     
     @app.route('/breeder/get_parents', methods=['GET', 'POST'])
     def breeder_get_parents():        
         parents_result = None
         if request.method == 'POST':
             child = float(request.form.get('dropdown1'))
-            parents_result = get_parent(child)['Name']
-            
-        return render_template('breeder_get_parents.html', dict_paldex=dict_paldeck, parents_result=parents_result)
+            p1, p2 = get_parent(child)
+            p1 = p1['Name']
+            p2 = p2['Name']
+        return render_template('breeder_get_parents.html', dict_paldex=dict_paldeck, p1=p1, p2=p2)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():

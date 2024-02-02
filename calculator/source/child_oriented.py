@@ -23,7 +23,9 @@ def get_parent(child):
     
     if dict_paldeck[child]['Name'] in unique_combos:
         parents = unique_combos[dict_paldeck[child]['Name']].split('+')
-        return [get_index_by_name(parent) for parent in parents]
+        p1 = get_index_by_name(parents[0])
+        p2 = get_index_by_name(parents[1])
+        return dict_paldeck[p1], dict_paldeck[p2]
     
     duplas = []
     
@@ -38,3 +40,5 @@ def get_parent(child):
                     duplas.append((key1, key2))
 
     return duplas
+
+print(get_parent(103))
