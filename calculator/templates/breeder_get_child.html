@@ -5,82 +5,156 @@
 {% block header %}Breeder{% endblock %}
 
 {% block content %}
-<form method="post" class="my-4" id="breederForm">
-    <!-- Update the dropdowns to use Datalist -->
-    <div class="mb-3">
-        <label for="dropdown1" class="form-label">Select the First parent:</label>
-        <img id="imageContainer1" src="" alt="" style="max-width: 100px; max-height: 200px;">
-        <select name="dropdown1" id="dropdown1" class="form-control">
-            <option selected value=""></option>
-            {% for index, item in dict_paldeck.items() %}
-                <option value="{{ index }}" data-img="{{ item['ImageUrl'] }}">{{ item['Name'] }}</option>
-            {% endfor %}
-        </select>
+<div class="breeding-info mb-4">
+    <h1 class="h1">Breeding Calculator</h1>
+    <div>
+        <p>Returns you the child after selecting the two Pal parents.</p>
     </div>
-    
+</div>
+{% if child_result %}
+        <p>Child Result: {{ child_result['Name'] }}</p>
+        <!-- Display the image using the img tag -->
+        <img src="{{ child_result['ImageUrl'] }}" alt="Child Image" style="max-width: 100px; max-height: 200px;">
+    {% endif %}
+<form method="post" action="/breeder/get_child" class="my-4" id="breederForm" onsubmit="prepareAndSubmitForm()">
     <div class="mb-3">
-        <label for="dropdown2" class="form-label">Select the Second parent:</label>
-        <img id="imageContainer2" src="" alt="" style="max-width: 100px; max-height: 200px;">
-        <select name="dropdown2" id="dropdown2" class="form-control">
-            <option selected value=""></option>
+        <label for="selectedPals" class="form-label">Select the Parents:</label><button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+        <ul id="selectedPals" class="pal-list">
             {% for index, item in dict_paldeck.items() %}
-                <option value="{{ index }}" data-img="{{ item['ImageUrl'] }}">{{ item['Name'] }}</option>
+                <li class="pal-item" data-value="{{ index }}">
+                    <img src="{{ item['ImageUrl'] }}" alt="{{ item['Name'] }}" style="max-width: 100px; max-height: 200px;">
+                    <p class="pal-name">{{ item['Name'] }}</p>
+                </li>
             {% endfor %}
-        </select>
+        </ul>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
 
-    {% if child_result %}
-    <p>Child Result: {{ child_result['Name'] }}</p>
-    <!-- Display the image using the img tag -->
-    <img src="{{ child_result['ImageUrl'] }}" alt="Child Image" style="max-width: 100px; max-height: 200px;">
-{% endif %}
-
+    <input type="hidden" name="parent1" id="parent1" value="">
+    <input type="hidden" name="parent2" id="parent2" value="">
+</form>
 
 <script>
-    // Use JavaScript to update images based on selected option for the first dropdown
-    document.getElementById('dropdown1').addEventListener('change', function() {
-        updateImage('dropdown1', 'imageContainer1');
+    // Initialize selectedPals as an empty array
+    var selectedPals = [];
+
+    // Use JavaScript to handle the selection of individual items
+    document.querySelectorAll('.pal-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            var selectedValue = this.getAttribute('data-value');
+            
+            // Check if the pal is already selected, if not, add to the list
+            if (selectedPals.includes(selectedValue)) {
+                selectedPals = selectedPals.filter(pal => pal !== selectedValue);
+            } else {
+                if (selectedPals.length < 2) {
+                    selectedPals.push(selectedValue);
+                }
+            }
+
+            updateSelection();
+        });
     });
 
-    // Use JavaScript to update images based on selected option for the second dropdown
-    document.getElementById('dropdown2').addEventListener('change', function() {
-        updateImage('dropdown2', 'imageContainer2');
-    });
-
-    // Check if there are stored values and update dropdowns accordingly
-    window.onload = function() {
+    // Check if there are stored values and update the selection accordingly
+    window.onload = function () {
         var storedValue1 = localStorage.getItem('selectedValue1');
         if (storedValue1) {
-            document.getElementById('dropdown1').value = storedValue1;
-            updateImage('dropdown1', 'imageContainer1');
+            selectedPals.push(storedValue1);
         }
 
         var storedValue2 = localStorage.getItem('selectedValue2');
         if (storedValue2) {
-            document.getElementById('dropdown2').value = storedValue2;
-            updateImage('dropdown2', 'imageContainer2');
+            selectedPals.push(storedValue2);
         }
+
+        updateSelection();
     };
 
-    function updateImage(dropdownId, containerId) {
-        var selectedOption = document.getElementById(dropdownId).value;
-        var imageContainer = document.getElementById(containerId);
+    // Update hidden input values before form submission
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        console.log('Button clicked'); // Check if this message is logged in the console
+        document.getElementById('parent1').value = selectedPals[0] || '';
+        document.getElementById('parent2').value = selectedPals[1] || '';
 
-        // Get the image URL from the data-img attribute
-        var imageUrl = document.querySelector('#' + dropdownId + ' option[value="' + selectedOption + '"]').getAttribute('data-img');
+        // Manually trigger the form submission
+        document.getElementById('breederForm').submit();
+    });
 
-        // Update the image container
-        imageContainer.src = imageUrl;
+    function updateSelection() {
+        // Remove selection styles from all items
+        document.querySelectorAll('.pal-item').forEach(function(item) {
+            item.classList.remove('selected');
+        });
 
-        // Store the selected value in localStorage
-        if (dropdownId === 'dropdown1') {
-            localStorage.setItem('selectedValue1', selectedOption);
-        } else if (dropdownId === 'dropdown2') {
-            localStorage.setItem('selectedValue2', selectedOption);
-        }
+        // Add selection styles to the selected items
+        selectedPals.forEach(function(value) {
+            var selectedPal = document.querySelector('.pal-item[data-value="' + value + '"]');
+            if (selectedPal) {
+                selectedPal.classList.add('selected');
+            }
+        });
+
+        // Store the selected values in localStorage
+        localStorage.setItem('selectedValue1', selectedPals[0] || '');
+        localStorage.setItem('selectedValue2', selectedPals[1] || '');
     }
 </script>
+
+
+<style>
+    .breeding-info {
+        background-color: #d4edda; /* Match Bootstrap's bg-success background color */
+        border: 1px solid #c3e6cb; /* Match Bootstrap's success alert border color */
+        padding: 20px; /* Padding around the content */
+        border-radius: 8px; /* Rounded corners */
+        margin-bottom: 20px; /* Margin at the bottom to separate from the form */
+    }
+
+    .breeding-info h1 {
+        color: #155724; /* Match Bootstrap's text color for success alerts */
+    }
+
+    .breeding-info p {
+        color: #155724; /* Inherit the color from the h1 element */
+    }
+
+    /* Style for the scrollable list */
+    .pal-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Style for individual items */
+    .pal-item {
+        cursor: pointer;
+        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 0 1 calc(25% - 20px); /* Adjust the width based on the number of items per row */
+    }
+
+    /* Style for selected items */
+    .pal-item.selected {
+        border: 2px solid #007bff; /* Highlight selected items with a border */
+    }
+
+    .pal-name {
+        margin-top: 5px;
+        color: black; /* Text color for Pal names */
+    }
+
+    /* Style for the submit button */
+    #submitBtn {
+        margin-top: 10px;
+    }
+</style>
 
 {% endblock %}

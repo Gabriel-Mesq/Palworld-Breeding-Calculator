@@ -27,15 +27,16 @@ def create_app(test_config=None):
         pass
 
     @app.route('/breeder/get_child', methods=['GET', 'POST'])
-    def breeder_get_child():        
+    def breeder_get_child():
         child_result = None
         if request.method == 'POST':
-            p1 = float(request.form.get('dropdown1'))
-            p2 = float(request.form.get('dropdown2'))            
+            p1 = float(request.form.get('parent1'))
+            p2 = float(request.form.get('parent2'))
 
             child_result = get_child(p1, p2)
-            
+
         return render_template('breeder_get_child.html', dict_paldeck=dict_paldeck, child_result=child_result)
+
     
     @app.route('/breeder/get_parents', methods=['GET', 'POST'])
     def breeder_get_parents():        
