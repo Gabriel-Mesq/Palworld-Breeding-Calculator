@@ -44,7 +44,7 @@ def create_app(test_config=None):
             child = float(request.form.get('dropdown1'))
             parents_result = get_parent(child)['Name']
             
-        return render_template('breeder.html', dict_paldex=dict_paldeck, parents_result=parents_result)
+        return render_template('breeder_get_parents.html', dict_paldex=dict_paldeck, parents_result=parents_result)
     
     @app.route('/calculator', methods=['GET', 'POST'])
     def calculator():

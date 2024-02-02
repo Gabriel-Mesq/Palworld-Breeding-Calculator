@@ -1,4 +1,4 @@
-from paldeck import dict_paldeck, unique_combos
+from calculator.source.paldeck import dict_paldeck, unique_combos
 
 def find_closest_element(target_value):
     closest_element = None
