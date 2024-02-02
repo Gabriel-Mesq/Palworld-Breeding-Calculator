@@ -5,24 +5,26 @@
 {% block header %}Breeder{% endblock %}
 
 {% block content %}
-<form method="post" class="my-4">
-    <!-- Update the dropdowns -->
+<form method="post" class="my-4" id="breederForm">
+    <!-- Update the dropdowns to use Datalist -->
     <div class="mb-3">
         <label for="dropdown1" class="form-label">Select the First parent:</label>
-        <select id="dropdown1" name="dropdown1" class="form-control">
+        <input list="parentsList" name="dropdown1" id="dropdown1" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
+        <datalist id="parentsList">
             {% for index, item in dict_paldex.items() %}
                 <option value="{{ index }}">{{ item['Name'] }}</option>
             {% endfor %}
-        </select>
+        </datalist>
     </div>
     
     <div class="mb-3">
         <label for="dropdown2" class="form-label">Select the Second parent:</label>
-        <select id="dropdown2" name="dropdown2" class="form-control">
+        <input list="parentsList" name="dropdown2" id="dropdown2" class="form-control" autocomplete="on" oninput="updateDisplayName(this)">
+        <datalist id="parentsList">
             {% for index, item in dict_paldex.items() %}
                 <option value="{{ index }}">{{ item['Name'] }}</option>
             {% endfor %}
-        </select>
+        </datalist>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -30,12 +32,23 @@
     {% if child_result %}
         <p>Child Result: {{ child_result }}</p>
     {% endif %}
+
 </form>
 
-
 <script>
-    $(document).ready(function() {
-        $('#dropdown1').select2();
-    });
+    function updateDisplayName(input) {
+        var selectedOption = input.value;
+        var dataList = input.list;
+
+        // Find the selected option in the datalist using label
+        var option = Array.from(dataList.options).find(option => option.label === selectedOption);
+
+        // Update the input field with the displayed name
+        if (option) {
+            input.value = option.label;
+        }
+    }
 </script>
+
+
 {% endblock %}
