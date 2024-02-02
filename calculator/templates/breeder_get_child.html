@@ -11,6 +11,10 @@
         <p>Returns you the child after selecting the two Pal parents.</p>
     </div>
 </div>
+<div class="mb-3">
+    <label for="searchPals" class="form-label">Search Pals:</label>
+    <input type="search" id="searchPals" class="form-control" placeholder="Type to search...">
+</div>
 {% if child_result %}
         <p>Child Result: {{ child_result['Name'] }}</p>
         <!-- Display the image using the img tag -->
@@ -70,6 +74,16 @@
 
         updateSelection();
     };
+
+    document.getElementById('searchPals').addEventListener('input', function() {
+        var searchValue = this.value.toLowerCase();
+
+        // Hide or show pal items based on search value
+        document.querySelectorAll('.pal-item').forEach(function(item) {
+            var palName = item.querySelector('.pal-name').innerText.toLowerCase();
+            item.style.display = palName.includes(searchValue) ? 'flex' : 'none';
+        });
+    });
 
     // Update hidden input values before form submission
     document.getElementById('submitBtn').addEventListener('click', function() {
