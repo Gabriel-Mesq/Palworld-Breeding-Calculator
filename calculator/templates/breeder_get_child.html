@@ -80,22 +80,7 @@
         } else if (dropdownId === 'dropdown2') {
             localStorage.setItem('selectedValue2', selectedOption);
         }
-
-        // Use Fetch API to send an asynchronous request to the server
-        fetch('/breeder/update_images', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                selectedOption: selectedOption,
-                dropdownId: dropdownId,
-            }),
-        });
     }
 </script>
-
-
-
 
 {% endblock %}
