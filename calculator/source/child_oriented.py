@@ -28,7 +28,7 @@ def get_parent(child):
     duplas = []
     
     child_power = dict_paldeck[child]['Power']
-    
+
     for key1, value1 in dict_paldeck.items():
         for key2, value2 in dict_paldeck.items():
             if key1 != key2:
@@ -38,7 +38,3 @@ def get_parent(child):
                     duplas.append((key1, key2))
 
     return duplas
-
-# Exemplo de uso:
-resultado = get_parent(103)
-print(f"Duplas cuja média é {104.1}: {resultado}")
